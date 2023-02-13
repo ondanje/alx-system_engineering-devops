@@ -1,2 +1,2 @@
 #!/bin/bash
-$word | tr Ac Ze
+echo "Actor" | tr Ac Ze
