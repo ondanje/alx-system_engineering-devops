@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#Parsing the Apache access log file
+#Format : OCCURENCE_NUMBER IP HTTP_CODE
+
+awk '{count[$1, $9]++} END {for (key in count) {split(key, arr, SUBSEP); print count[key], arr[1], arr[2]}}' "apache-access.log" | sort -rn
