@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 #Script to display only listening ports and their pid
 
-sudo netstat -lp
+netstat -lp
