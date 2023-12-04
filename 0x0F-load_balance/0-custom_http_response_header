@@ -1,14 +1,9 @@
 #!/usr/bin/env bash
 # configuring new servers
 
-app_name="nginx"
+sudo apt-get update
 
-if command -v "$app_name" >/dev/null 2>&1; then
-    :
-else
-    sudo apt-get update
-    sudo apt-get install -y "$app_name"
-fi
+sudo apt-get -y install nginx
 
 if [ ! -d "/etc/nginx/html" ]; then
     sudo mkdir -p /etc/nginx/html
