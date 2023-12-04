@@ -1,23 +1,45 @@
 #!/usr/bin/env bash
 # configuring new servers
 
-sudo apt-get -y update
+app_name="nginx"
 
-sudo apt-get -y install nginx
+if command -v "$app_name" >/dev/null 2>&1; then
+    :
+else
+    sudo apt-get update
+    sudo apt-get install -y "$app_name"
+fi
 
-ufw allow 'Nginx HTTP'
+if [ ! -d "/etc/nginx/html" ]; then
+    sudo mkdir -p /etc/nginx/html
+fi
 
-sudo mkdir -p /var/www/html
-sudo chown -R "$USER":"$USER" /var/www/html
+if [ ! -f "/etc/nginx/html/index.html" ]; then
+    sudo touch /etc/nginx/html/index.html
+fi
 
-echo "Hello World!" > /var/www/html/index.nginx-debian.html
+sudo touch /etc/nginx/html/404.html
+echo "Ceci n'est pas une page" | sudo tee /etc/nginx/html/404.html
 
-echo "Ceci n'est pas une page" > /var/www/html/404.html
+echo "Hello World!" | sudo tee /etc/nginx/html/index.html
 
-sudo sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+printf %s "server {
+     listen      80 default_server;
+     listen      [::]:80 default_server;
+     root        /etc/nginx/html;
+     index       index.html index.htm;
+     add_header X-Served-By $HOSTNAME;
 
-sudo sed -i '/listen 80 default_server/a error_page 404 /404.html;' /etc/nginx/sites-enabled/default
+     location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+     }
 
-sudo sed -i "/listen 80 default_server/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-enabled/default
+     error_page 404 /404.html;
+     location /404 {
+        root /etc/nginx/html;
+        internal;
+     }
+}
+" | sudo tee /etc/nginx/sites-available/default
 
 sudo service nginx restart
