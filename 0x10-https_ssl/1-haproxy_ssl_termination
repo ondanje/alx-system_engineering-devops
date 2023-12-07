@@ -33,12 +33,12 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 frontend myfrontend
-                mode http
-                bind *:80
-                bind *:443 ssl crt /etc/haproxy/certs/www.cyrilondanje.tech.pem
-                redirect scheme https if !{ ssl_fc }
-		backend web_servers
-                balance roundrobin
-                server 79728-web-01 54.157.180.9:80 check
-                server 79728-web-02 100.26.229.77:80 check
-
+        mode http
+        bind *:80
+        bind *:443 ssl crt /etc/haproxy/certs/www.cyrilondanje.tech.pem
+        redirect scheme https if !{ ssl_fc }
+		default_backend web_servers
+backend web_servers
+        balance roundrobin
+        server 79728-web-01 54.157.180.9:80 check
+        server 79728-web-02 100.26.229.77:80 check
