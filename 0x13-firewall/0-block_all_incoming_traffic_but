@@ -1,3 +1,9 @@
+#!/usr/bin/env bash
+#installing ufw and configuring to allow access to port 22, 80, 443
+# By default allincoming are blocked and outgoing allowed
+
+sudo apt update
+
 sudo apt-get install ufw
 
 sudo ufw default deny incoming
