@@ -4,8 +4,9 @@ Python script that, using this REST API,
 for a given employee ID,returns information
 about his/her TODO list
 """
-import sys
 import requests
+import sys
+
 
 if __name__ == "__main__":
     employee_Id = sys.argv[1]
@@ -26,7 +27,7 @@ if __name__ == "__main__":
             completed_tasks.append(task)
             done += 1
 
-    print('Employee {} is done with tasks({}/{})'.
+    print("Employee {} is done with tasks({}/{}):".
           format(name, done, len(tasks)))
 
     for task in completed_tasks:
