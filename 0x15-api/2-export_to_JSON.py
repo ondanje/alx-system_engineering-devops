@@ -2,9 +2,9 @@
 """
 Export to JSON
 """
-import sys
-import requests
 import json
+import requests
+import sys
 
 if __name__ == "__main__":
     employee_Id = sys.argv[1]
