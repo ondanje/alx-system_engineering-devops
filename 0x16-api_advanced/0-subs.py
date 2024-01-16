@@ -9,7 +9,7 @@ def number_of_subscribers(subreddit):
     """function to display number of subscribers"""
     url = f"https://www.reddit.com/r/{subreddit}/about.json"
 
-    headers = {'User-Agent': 'User Agent 1'}
+    headers = {'User-Agent': 'CustomUserAgent/1.0'}
 
     response = requests.get(url, headers=headers, allow_redirects=False)
 
