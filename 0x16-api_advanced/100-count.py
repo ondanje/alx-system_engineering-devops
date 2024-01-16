@@ -6,8 +6,8 @@
  delimited by spaces. Javascript should count as javascript,
  but java should not).
 """
-import requests
 from collections import Counter
+import requests
 
 
 def count_words(subreddit, word_list, after=None, counts=None):
@@ -19,12 +19,11 @@ def count_words(subreddit, word_list, after=None, counts=None):
                 print(f"{word}: {count}")
         return
 
-    # Reddit API endpoint for hot articles in a subreddit with pagination
     url = "https://www.reddit.com/r/{}/hot.json?limit=100&after={}".format
     (subreddit, after)
 
     # Custom User-Agent to avoid errors related to Too Many Requests
-    headers = {'User-Agent': 'CustomUserAgent/1.0'}
+    headers = {'User-Agent': 'CustomUserAgent/4.0'}
 
     try:
         # Make GET request to the Reddit API
